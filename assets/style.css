@@ -1,0 +1,43 @@
+html, body {
+  background: #333;
+  height: 100%;
+  margin: 0;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+#root {
+  display: table;
+  height: 100%;
+  width: 100%;
+}
+
+.controller {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+div.button {
+  border: 4px solid white;
+  border-radius: 64px;
+  color: white;
+  display: inline-block;
+  height: 64px;
+  line-height: 64px;
+  margin: 8px;
+  text-align: center;
+  width: 64px;
+  vertical-align: middle;
+}
+
+div.button:active {
+  background: #777;
+}
+
+div.button i {
+  vertical-align: middle;
+}
+
+div.button .fa-play {
+  margin-left: 10px;
+}
