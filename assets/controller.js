@@ -1,10 +1,16 @@
 'use strict';
 
-const rest = require('rest');
+const Fastclick = require('fastclick');
 const React = require('react');
 const {PropTypes} = React;
 
+const rest = require('rest');
+
 class Button extends React.Component {
+  componentDidMount() {
+    Fastclick.attach(React.findDOMNode(this));
+  }
+
   render() {
     return (
       <a href="#" onClick={this.props.onClick}>
