@@ -1,0 +1,19 @@
+{
+  "name": "remocon",
+  "version": "1.0.0",
+  "description": "Simple remote control server in node.js.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"No tests yet!\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hansonw/remocon.git"
+  },
+  "author": "Hanson Wang",
+  "license": "ISC",
+  "homepage": "https://github.com/hansonw/remocon",
+  "dependencies": {
+    "robotjs": "https://github.com/hansonw/robotjs.git"
+  }
+}
