@@ -1,12 +1,7 @@
-const Fastclick = require('fastclick');
 const React = require('react');
 const {PropTypes} = React;
 
 class PlayerButton extends React.Component {
-  componentDidMount() {
-    Fastclick.attach(React.findDOMNode(this));
-  }
-
   render() {
     return (
       <a href="#" onClick={this.props.onClick}>

@@ -1,7 +1,7 @@
 html, body {
   background: #333;
   color: white;
-  font-family: 'San Francisco', 'Segoe UI', sans-serif;
+  font-family: -apple-system, 'Segoe UI', sans-serif;
   height: 100%;
   margin: 0;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
@@ -21,6 +21,25 @@ html, body {
 
 .track-info {
   margin-bottom: 16px;
+}
+
+.track-info div {
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+}
+
+.track-progress {
+  margin-top: 16px;
+}
+
+.track-rating {
+  margin-top: 12px;
+}
+
+.rating-star {
+  padding: 4px;
 }
 
 div.button {
@@ -45,5 +64,5 @@ div.button i {
 }
 
 div.button .fa-play {
-  margin-left: 10px;
+  margin-left: 5px;
 }
