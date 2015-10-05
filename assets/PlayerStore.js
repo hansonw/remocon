@@ -5,6 +5,7 @@ const PlayerActions = require('./PlayerActions');
 class PlayerStore {
   constructor() {
     this.playerState = {};
+
     this.bindListeners({
       handleUpdatePlayers: [PlayerActions.UPDATE_STATE, PlayerActions.LOAD_STATE],
       handleButtonPress: [PlayerActions.PRESS_BUTTON],

@@ -8,6 +8,7 @@ const PlayerStore = require('../PlayerStore');
 const React = require('react');
 
 function toMMSS(seconds) {
+  seconds = Math.round(seconds);
   let min = Math.floor(seconds / 60);
   let sec = seconds % 60;
   if (sec < 10) {
@@ -56,8 +57,10 @@ class Controller extends React.Component {
         }
         rating.push(
           <span
+            key={i}
             className="rating-star"
-            onClick={() => this._rateSong(i * 20)}>
+            onClick={() => this._rateSong(i * 20)}
+          >
             <i className={'fa ' + starClass} />
           </span>
         );
