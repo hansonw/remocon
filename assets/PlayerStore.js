@@ -7,13 +7,13 @@ class PlayerStore {
     this.playerState = {};
 
     this.bindListeners({
-      handleUpdatePlayers: [PlayerActions.UPDATE_STATE, PlayerActions.LOAD_STATE],
+      handleUpdateState: [PlayerActions.LOAD_STATE],
       handleButtonPress: [PlayerActions.PRESS_BUTTON],
       handleRate: [PlayerActions.RATE_CURRENT_SONG],
     });
   }
 
-  handleUpdatePlayers(state) {
+  handleUpdateState(state) {
     this.playerState = state;
   }
 

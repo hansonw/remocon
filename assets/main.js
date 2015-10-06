@@ -6,6 +6,7 @@ const Controller = require('./components/Controller');
 const PlayerActions = require('./PlayerActions');
 
 PlayerActions.loadState();
+document.addEventListener('touchmove', function(e) { e.preventDefault(); }, false);
 document.addEventListener('touchstart', function() {}, false);
 
 window.onload = () => {

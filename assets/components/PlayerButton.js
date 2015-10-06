@@ -6,7 +6,7 @@ class PlayerButton extends React.Component {
     return (
       <a href="#" onClick={this.props.onClick}>
         <div className="button">
-          <i className={'fa fa-2x ' + this.props.glyph} />
+          <i className={'fa fa-lg ' + this.props.glyph} />
         </div>
       </a>
     );

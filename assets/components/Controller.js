@@ -3,12 +3,13 @@
 const Button = require('./PlayerButton');
 const Fastclick = require('fastclick');
 const {ITunesActions} = require('../../lib/constants');
+const ArtworkStore = require('../ArtworkStore');
 const PlayerActions = require('../PlayerActions');
 const PlayerStore = require('../PlayerStore');
 const React = require('react');
 
-function toMMSS(seconds) {
-  seconds = Math.round(seconds);
+function toMMSS(_seconds) {
+  let seconds = Math.round(_seconds);
   let min = Math.floor(seconds / 60);
   let sec = seconds % 60;
   if (sec < 10) {
@@ -20,7 +21,10 @@ function toMMSS(seconds) {
 class Controller extends React.Component {
   constructor() {
     super();
-    this.state = PlayerStore.getState();
+    this.state = {
+      ...PlayerStore.getState(),
+      ...ArtworkStore.getState(),
+    };
     this.onChange = this.onChange.bind(this);
   }
 
@@ -28,6 +32,7 @@ class Controller extends React.Component {
     Fastclick.attach(React.findDOMNode(this));
 
     PlayerStore.listen(this.onChange);
+    ArtworkStore.listen(this.onChange);
     this._refresh = setInterval(
       PlayerActions.loadState,
       500,
@@ -57,8 +62,8 @@ class Controller extends React.Component {
         }
         rating.push(
           <span
-            key={i}
             className="rating-star"
+            key={i}
             onClick={() => this._rateSong(i * 20)}
           >
             <i className={'fa ' + starClass} />
@@ -66,8 +71,20 @@ class Controller extends React.Component {
         );
       }
 
+      let image = <img src="/placeholder_art.png" />;
+      if (currentTrack.hasArtwork) {
+        let artwork = this.state.trackArtwork[currentTrack.id];
+        if (artwork) {
+          let {format, data} = artwork;
+          image = <img src={'data:' + format + ';base64,' + data} />;
+        }
+      }
+
       trackInfo =
         <div className="track-info">
+          <div className="track-art">
+            {image}
+          </div>
           <div className="track-name">
             {currentTrack.name}
           </div>

@@ -28,3 +28,6 @@ node_modules
 
 # Generated files
 build
+
+# lol windows
+Thumbs.db
