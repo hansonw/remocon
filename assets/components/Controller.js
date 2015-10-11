@@ -7,15 +7,20 @@ const ArtworkStore = require('../ArtworkStore');
 const PlayerActions = require('../PlayerActions');
 const PlayerStore = require('../PlayerStore');
 const React = require('react');
+import Slider from './slider';
 
-function toMMSS(_seconds) {
+function renderTimestamp(_seconds) {
   let seconds = Math.round(_seconds);
   let min = Math.floor(seconds / 60);
   let sec = seconds % 60;
   if (sec < 10) {
     sec = '0' + sec;
   }
-  return min + ':' + sec;
+  return (
+    <span className="timestamp">
+      {min}:{sec}
+    </span>
+  );
 }
 
 class Controller extends React.Component {
@@ -26,6 +31,7 @@ class Controller extends React.Component {
       ...ArtworkStore.getState(),
     };
     this.onChange = this.onChange.bind(this);
+    this._onVolumeChange = this._onVolumeChange.bind(this);
   }
 
   componentDidMount() {
@@ -50,7 +56,7 @@ class Controller extends React.Component {
 
   render() {
     let trackInfo;
-    let {currentTrack, isPlaying} = this.state.playerState;
+    let {currentTrack, isPlaying, volume} = this.state.playerState;
     if (currentTrack) {
       let rating = [];
       for (let i = 1; i <= 5; i++) {
@@ -71,33 +77,36 @@ class Controller extends React.Component {
         );
       }
 
-      let image = <img src="/placeholder_art.png" />;
+      let artStyle = {
+        backgroundImage: 'url(/placeholder_art.png)',
+      };
       if (currentTrack.hasArtwork) {
         let artwork = this.state.trackArtwork[currentTrack.id];
         if (artwork) {
           let {format, data} = artwork;
-          image = <img src={'data:' + format + ';base64,' + data} />;
+          artStyle.backgroundImage = 'url(data:' + format + ';base64,' + data + ')';
         }
       }
 
       trackInfo =
         <div className="track-info">
-          <div className="track-art">
-            {image}
-          </div>
+          <div className="track-art" style={artStyle} />
           <div className="track-name">
             {currentTrack.name}
           </div>
           <div className="artist-name">
-            {currentTrack.artist}
-          </div>
-          <div className="album-name">
-            {currentTrack.album}
+            {currentTrack.artist || 'Unknown Artist'}
+            {currentTrack.album ? ' - ' + currentTrack.album : null}
           </div>
           <div className="track-progress">
-            {toMMSS(currentTrack.currentTime)}
-            {' / '}
-            {toMMSS(currentTrack.duration)}
+            {renderTimestamp(currentTrack.currentTime)}
+            <Slider
+              max={currentTrack.duration}
+              onChange={this._onProgressChange}
+              value={currentTrack.currentTime}
+              width="70%"
+            />
+            {renderTimestamp(currentTrack.duration)}
           </div>
           <div className="track-rating">
             {rating}
@@ -122,19 +131,15 @@ class Controller extends React.Component {
             onClick={() => this._onClick(ITunesActions.NEXT_TRACK)}
           />
         </div>
-        <div>
-          <Button
-            glyph="fa-volume-off"
-            onClick={() => this._onClick('volumemute')}
+        <div className="volume">
+          <i className="fa fa-volume-down" />
+          <Slider
+            max={100}
+            onChange={this._onVolumeChange}
+            value={volume}
+            width="60%"
           />
-          <Button
-            glyph="fa-volume-down"
-            onClick={() => this._onClick('volumedown')}
-          />
-          <Button
-            glyph="fa-volume-up"
-            onClick={() => this._onClick('volumeup')}
-          />
+          <i className="fa fa-volume-up" />
         </div>
       </div>
     );
@@ -142,6 +147,14 @@ class Controller extends React.Component {
 
   _onClick(action) {
     PlayerActions.pressButton(action);
+  }
+
+  _onProgressChange(progress) {
+    PlayerActions.setPosition(progress);
+  }
+
+  _onVolumeChange(vol) {
+    PlayerActions.setVolume(vol);
   }
 
   _rateSong(rating) {

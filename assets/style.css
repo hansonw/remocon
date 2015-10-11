@@ -14,23 +14,22 @@ html, body {
 }
 
 .controller {
-  display: table-cell;
   text-align: center;
-  vertical-align: middle;
 }
 
-.track-art img {
-  border: 2px solid #777;
-  height: 150px;
+.track-art {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 280px;
   margin-bottom: 16px;
-  width: 150px;
 }
 
 .track-info {
   margin-bottom: 16px;
 }
 
-.track-info div {
+.track-name, .artist-name {
   -webkit-box-orient: vertical;
   display: -webkit-box;
   overflow: hidden;
@@ -38,7 +37,21 @@ html, body {
 }
 
 .track-progress {
+  font-size: 12px;
   margin-top: 16px;
+}
+
+.track-progress .slider {
+  margin: 0 8px;
+}
+
+.track-progress > * {
+  vertical-align: middle;
+}
+
+.timestamp {
+  display: inline-block;
+  width: 30px;
 }
 
 .track-rating {
@@ -72,4 +85,30 @@ div.button i {
 
 div.button .fa-play {
   margin-left: 3px;
+}
+
+.volume * {
+  vertical-align: middle;
+}
+
+.volume .slider {
+  margin: 0 8px;
+}
+
+.slider, .slider-fill {
+  border-radius: 4px;
+  height: 4px;
+}
+
+.slider-container {
+  display: inline-block;
+  padding: 8px 0;
+}
+
+.slider {
+  background: #777;
+}
+
+.slider-fill {
+  background: white;
 }

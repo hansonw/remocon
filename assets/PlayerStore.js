@@ -10,6 +10,8 @@ class PlayerStore {
       handleUpdateState: [PlayerActions.LOAD_STATE],
       handleButtonPress: [PlayerActions.PRESS_BUTTON],
       handleRate: [PlayerActions.RATE_CURRENT_SONG],
+      handleSetPosition: [PlayerActions.SET_POSITION],
+      handleSetVolume: [PlayerActions.SET_VOLUME],
     });
   }
 
@@ -37,6 +39,20 @@ class PlayerStore {
       track.rating = rating;
       return true;
     }
+    return false;
+  }
+
+  handleSetPosition(position) {
+    let track = this.playerState.currentTrack;
+    if (track) {
+      track.currentPosition = position;
+      return true;
+    }
+    return false;
+  }
+
+  handleSetVolume(volume) {
+    this.playerState.volume = volume;
     return false;
   }
 }

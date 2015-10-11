@@ -46,6 +46,28 @@ class PlayerActions {
     _lastOptimisticUpdate = Date.now();
   }
 
+  setPosition(position) {
+    rest({
+      method: 'POST',
+      path: '/position',
+      params: {position},
+    });
+    _cancelUpdate();
+    this.dispatch(position);
+    _lastOptimisticUpdate = Date.now();
+  }
+
+  setVolume(volume) {
+    rest({
+      method: 'POST',
+      path: '/volume',
+      params: {volume},
+    });
+    _cancelUpdate();
+    this.dispatch(volume);
+    _lastOptimisticUpdate = Date.now();
+  }
+
   updateState(state) {
     this.dispatch(state);
   }
