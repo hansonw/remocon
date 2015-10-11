@@ -90,7 +90,7 @@ class Controller extends React.Component {
 
       trackInfo =
         <div className="track-info">
-          <div className="track-art" style={artStyle} />
+          <div className="track-art" onClick={this._refreshMaybe} style={artStyle} />
           <div className="track-name">
             {currentTrack.name}
           </div>
@@ -143,6 +143,13 @@ class Controller extends React.Component {
         </div>
       </div>
     );
+  }
+
+  _refreshMaybe() {
+    // For testing on iOS standalone mode.
+    if (window.navigator.standalone) {
+      window.location.reload();
+    }
   }
 
   _onClick(action) {
